@@ -21,13 +21,16 @@
 \RequirePackage[nottoc,notlof,notlot]{tocbibind}
 \RequirePackage{footmisc}
 \RequirePackage{csquotes}
-\RequirePackage[
-  backend=biber,
-	style=numeric,
-  citestyle=numeric,
-  hyperref=true,
-	backref=true
-	]{biblatex}
+\RequirePackage{biblatex}
+
+% \RequirePackage[
+% 	style=numeric-verb,
+%   citestyle=numeric-verb,
+%   hyperref=true,
+% 	backref=true
+% 	]{biblatex}
+
+  
 \RequirePackage[linktocpage,breaklinks,colorlinks,%
                 linkcolor=black,anchorcolor=black,citecolor=black,%
                 filecolor=black,menucolor=black,runcolor=black,%
@@ -95,6 +98,7 @@
     \printtext[bibhyperref]{\usebibmacro{cite}}}
   {\multicitedelim}
   {\usebibmacro{postnote}}
+
 
 \DeclareCiteCommand*{\parencite}[\mkbibparens]
   {\usebibmacro{prenote}}

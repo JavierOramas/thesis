@@ -726,7 +726,7 @@ FUNCTION {format.article.crossref}
     }
     { "\Btxinlong {}\ " key titlefont * }
   if$
-  " \cite{" * crossref * "}" *
+  "\cite{" * crossref * "}" *
 }
 
 FUNCTION {format.crossref.editor}
@@ -774,7 +774,7 @@ FUNCTION {format.book.crossref}
     }
     { format.crossref.editor * }
   if$
-  " \cite{" * crossref * "}" *
+  "\cite{" * crossref * "}" *
 }
 
 FUNCTION {format.incoll.inproc.crossref}
@@ -795,7 +795,7 @@ FUNCTION {format.incoll.inproc.crossref}
     }
     { "\Btxinlong {}\ " format.crossref.editor * }
   if$
-  " \cite{" * crossref * "}" *
+  "\cite{" * crossref * "}" *
 }
 
 FUNCTION {article}
