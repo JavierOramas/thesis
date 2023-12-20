@@ -14,12 +14,9 @@ jobs:
         with:
           root_file: Thesis.tex
           working_directory: document
-      - name: Prepare for Deploy
-        run: |
-          mkdir build
-          mv document/Thesis.pdf build/document.pdf
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.5
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
         with:
-          branch: gh-pages
-          folder: build
+          files: |
+            document/Thesis.pdf  # Update with the actual path to your built PDF
+          token: ${{ secrets.GITHUB_TOKEN }}
