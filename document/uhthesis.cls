@@ -24,8 +24,6 @@
 % \RequirePackage{biblatex}
 
 \RequirePackage[
-	style=apalike,
-  citestyle=apalike,
   hyperref=true,
 	backref=true
 	]{biblatex}
