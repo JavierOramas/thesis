@@ -21,14 +21,14 @@
 \RequirePackage[nottoc,notlof,notlot]{tocbibind}
 \RequirePackage{footmisc}
 \RequirePackage{csquotes}
-\RequirePackage{biblatex}
+% \RequirePackage{biblatex}
 
-% \RequirePackage[
-% 	style=numeric-verb,
-%   citestyle=numeric-verb,
-%   hyperref=true,
-% 	backref=true
-% 	]{biblatex}
+\RequirePackage[
+	style=apalike,
+  citestyle=apalike,
+  hyperref=true,
+	backref=true
+	]{biblatex}
 
   
 \RequirePackage[linktocpage,breaklinks,colorlinks,%

@@ -42,4 +42,23 @@ La incorporación de Grandes Modelos de Lenguaje (LLM) ha revolucionado el campo
 
     Muenninghoff et al. (2023)\cite{muennighoff2023mteb} presentan el \emph{Massive Text Embedding Benchmark (MTEB)}, una iniciativa que abarca ocho tareas de embedding, 58 conjuntos de datos y 112 idiomas. A través de la evaluación de 33 modelos en \emph{MTEB}, se establece el benchmark más completo hasta la fecha. Los resultados revelan que ningún método de embedding de texto específico domina en todas las tareas, indicando que el campo aún no ha convergido hacia un método universal. MTEB se presenta como una solución de código abierto y un\cite[leaderboard público]{leaderboard}. Este enfoque transparente y accesible contribuye a un mejor entendimiento y selección de modelos de embedding de texto, fomentando el avance y la consolidación en este campo dinámico.
 
-\section{Modelo de Lenguaje}
+\section{Modelos de Lenguaje}
+   
+    La influencia transformadora de las arquitecturas de transformers, introducida en "Attention is All You Need" \cite{attention}, ha sido crucial para remodelar la modelización del lenguaje. Modelos como BERT\cite{BERT} avanzaron en la comprensión bidireccional del contexto, mientras que la serie GPT (Generative Pre-trained Transformer), especialmente GPT-3\cite{brown2020language}, presentando un modelo de 175 mil millones de parámetros y su sucesor GPT4\cite{openai2023gpt4}. Otros de los modelos a destacar son el presentados por MetaAI, LLaMA(Feb. 2023)\cite{llamapaper} y LLaMA2(Jul. 2023)\cite{llamapaper2} una colección de modelos de lenguaje grandes (LLMs) preentrenados y ajustados finamente que varían en escala desde 7 mil millones hasta 70 mil millones de parámetros. Mostrando resultados prometedores en comparación con otros modelos\cite{metallama}. 
+    
+    \subsection{Generación de resúmenes usando LLM}
+
+    En el trabajo de \cite[(Basyal et al. 2023)]{basyal2023text} se exploran técnicas de resumen de texto utilizando \emph{LLMs}, incluyendo MPT-7b-instruct, falcon-7b-instruct y OpenAI ChatGPT text-davinci-003. El modelo text-davinci-003 destaca como el más efectivo en diversas métricas de evaluación. Se realiza una comparación detallada en diferentes conjuntos de datos, como CNN Daily Mail y XSum, ofreciendo valiosas percepciones sobre el rendimiento de los LLMs en entornos variados. 
+
+    \subsection{Modelos de GPT4All}
+
+        GPT4All es un ecosistema de software libre que ha publicado un grupo de \emph{LLMs} basados en la arquitectura \emph{transformers}\cite{attention}. Los modelos GPT4All son producto de la cuantización\footnote{Cuantizar es un proceso en el cual se reduce la precisión de los números en una red neuronal, disminuyendo así los requisitos de memoria y permitiendo que modelos grandes se ejecuten en dispositivos con recursos limitados. En este contexto, cuantizar facilita el uso de modelos GPT4All en computadoras con menos capacidad de hardware.} de redes neuronales, un proceso que reduce los requisitos de VRAM VRAM\footnote{La memoria VRAM (Video Random Access Memory) es utilizada tratar los datos y las operaciones relacionadas con la tarjeta gráfica.} para ejecutar un Decodificador Transformer de varios miles de millones de parámetros. A través de algoritmos de cuantización, estos modelos pueden ser adaptados para poder ser utilizados con un hardware moderado\cite{webgpt4all}.
+        
+        Entre los modelos soportados se encuentran\footnote{La cantidad de parámetros especificada se refiere a los modelos cuantizados disponibles en la web de GPT4All}:
+        \begin{enumerate}
+            \item Falcon (7 mil millones de parámetros) \cite{falcon}
+            \item LLaMA (7-13 min millones de parámetros )\cite{llama}
+            \item MPT (7 mil millones de parámetros) \cite{mpt}
+            \item GPT-J (6 mil millone de parámetros)\cite{gptj}
+        \end{enumerate}
+
