@@ -1,19 +1,31 @@
 name: Build & Deploy
+
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
+
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Clone repo
         uses: actions/checkout@v2
+
+      - name: Set up LaTeX
+        uses: dante-ev/setup-texlive@v1
+
+      - name: Install Biber
+        run: sudo tlmgr install biber
+
       - name: LaTeX compilation
-        uses: dante-ev/latex-action@2021-A
-        with:
-          root_file: Thesis.tex
-          working_directory: document
+        run: |
+          pdflatex -interaction=nonstopmode -halt-on-error -output-directory=document Thesis.tex
+          biber document/Thesis
+          pdflatex -interaction=nonstopmode -halt-on-error -output-directory=document Thesis.tex
+          pdflatex -interaction=nonstopmode -halt-on-error -output-directory=document Thesis.tex
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
