@@ -22,7 +22,7 @@ jobs:
         run: tlmgr --version
 
       - name: Install Biber
-        run: sudo tlmgr install biber
+        run: tlmgr install biber
 
       - name: LaTeX compilation
         run: |
