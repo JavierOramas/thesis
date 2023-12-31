@@ -24,10 +24,12 @@ jobs:
       - name: Install Biber
         run: tlmgr install biber
 
-      - name: LaTeX compilation
-        run: |
-         cd document
-         latexmk -f
+      - name: Generate PDF document
+        uses: hspaans/latexmk-action@v1
+        with:
+          format: pdf
+          filename: document/Thesis.tex
+          
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
