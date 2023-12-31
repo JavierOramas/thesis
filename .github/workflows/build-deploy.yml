@@ -13,8 +13,13 @@ jobs:
       - name: Clone repo
         uses: actions/checkout@v2
 
-      - name: Set up LaTeX
-        uses: dante-ev/setup-texlive@v1
+      - name: Setup TeX Live
+        uses: teatimeguest/setup-texlive-action@v3
+        with:
+            packages: scheme-basic
+
+      - name: Check `tlmgr` version
+        run: tlmgr --version
 
       - name: Install Biber
         run: sudo tlmgr install biber
