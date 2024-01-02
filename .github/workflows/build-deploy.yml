@@ -1,19 +1,35 @@
 name: Build & Deploy
+
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
+
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Clone repo
         uses: actions/checkout@v2
-      - name: LaTeX compilation
-        uses: dante-ev/latex-action@2021-A
+
+      - name: Setup TeX Live
+        uses: teatimeguest/setup-texlive-action@v3
         with:
-          root_file: Thesis.tex
-          working_directory: document
+            packages: scheme-basic
+
+      - name: Check `tlmgr` version
+        run: tlmgr --version
+
+      - name: Install Biber
+        run: tlmgr install biber
+
+      - name: Generate PDF document
+        uses: hspaans/latexmk-action@v1
+        with:
+          format: pdf
+          filename: Thesis.tex
+          
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
