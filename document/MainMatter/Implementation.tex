@@ -3,49 +3,49 @@ En este capítulo se aborda la implementación de cada uno de los componentes qu
 descrito en la propuesta de solución.
 
 \section{Carga de documentos}
-La carga de documentos se realiza haciendo uso de la biblioteca \emph{langchain}[\cite{langchain}]
-en particular el submódulo \emph{PyPDFLoader} del módulo \emph{document\_loaders}, no obstante, este puede ser sustituido por otro módulo siempre que la respuesta cuente con campos \emph{metadata} y \emph{page\_content}. En caso de sustituir completamente el módulo de carga de documentos se debe garantizar que el resultado de este primer paso sean dos listas, una con el texto de los documentos y otra con los metadatos de los mismos.
+La carga de documentos se realiza haciendo uso de la biblioteca \emph{langchain}[\cite{langchain}],
+en particular del submódulo \emph{PyPDFLoader} del módulo \emph{document\_loaders}. Este módulo puede ser sustituido por otro módulo siempre que la respuesta cuente con campos \emph{metadata} y \emph{page\_content}. En caso de sustituir completamente el módulo de carga de documentos se debe garantizar que como resultado del primer paso se tengan dos listas, una con el texto de los documentos y otra con los metadatos correspondientes.
     \subsection{Segmentación del texto}
-        Una de las limitaciones de los modelos de embedding y los \emph{LLMs} es la cantidad máxima de tokens\footnote{Un \emph{“token”} se refiere a una unidad individual de significado en un texto.} que puede procesar de una vez, es por esto que es necesario, en los casos de documentos muy extensos, realizar una segmentación del texto para hacer un procesamiento parcial e independiente de las partes.
-        En la implementación de este documento se ofreecen tanto la segmentación por oraciones como la segmentación por párrafos, no obstante algunos párrafos pueden ser demasiado extensos y saturar la capacidad máxima del modelo.
+        Una de las limitaciones tanto de los modelos de embedding como de los \emph{LLM} es la cantidad máxima de tokens\footnote{Un \emph{“token”} se refiere a una unidad individual de significado en un texto.} que puede procesar de una vez, por ello, es necesario, para documentos muy extensos, realizar una segmentación del texto y procesarlos parcial e independiente de las partes.
+        En la implementación asociada a esta investigación se incluye tanto la segmentación por oraciones como la segmentación por párrafos, no obstante puede que algunos párrafos excesivamente extensos, saturen la capacidad máxima del modelo.
 
-Una vez cargados los documentos y segmentados, se asocia cada segmento de texto con los metadatos correspondientes.
+Toda vez que se encuentren cargados y segmentados los documentos, cada segmento de texto se asocia con los metadatos correspondientes
 
 \section{Transformación a vectores}
     \subsection{Modelo para la generación de \emph{embeddings}}
-        En correspondencia con lo visto en el estudio del estado del arte, para la implementación de este \emph{pipeline} se utilizó un grupo de modelos de generación de \emph{embeddings} comprendidos entre las 15 primeras posiciones proporcionadas por \emph{MTEB}[\cite{leaderboard}] al momento de la revisión.
+        Para la implementación de este \emph{pipeline} se utilizó un conjunto de modelos de generación de \emph{embeddings} comprendidos entre las 15 primeras posiciones proporcionadas por \emph{MTEB}[\cite{leaderboard}] al momento de la revisión.
 
-        Las dimensiones de los vectores generados por estos modelos de embedding varían entre los 1024, 768 y 384 elementos, además, la longitud de la secuencia que pueden procesar en todos los casos es de 512. Con este grupo de modelos de características diferentes se espera determinar si el desempeño de los modelos en esta tarea está directamente ligado a los resultados del modelo en \emph{MTEB} y evaluar cuán bien se desempeña un modelo más limitado en comparación con un modelo más extenso.
+        Las dimensiones de los vectores generados por estos modelos de embedding varían entre los 1024, 768 y 384 elementos, además, la longitud de la secuencia que pueden procesar en todos los casos es de 512. Con la selección de modelos con características diferentes se pretendió determinar si el desempeño de dichos modelos esta directamente ligado a los resultados del modelo arrojados por \emph{MTEB}, de igual manera se persiguió evaluar las diferencias en la calidad del desempeño de un modelo extenso en comparación con uno más limitado.
 
-    Para la implementación del modelo de vectorización se creó una clase \emph{Embeddings} que va a actuar a modo de \emph{"wrapper"}\footnote{Un \emph{“wrapper”} es un programa o código que encapsula y facilita el uso de otros componentes del programa} en la implementación proporcionada se utiliza la biblioteca langchain[\cite{langchain}], particularmente el módulo de \emph{embeddings} de HuggingFace para cargar los modelos de \emph{embeddings}, se definen los métodos siguientes:
+    Para la implementación del modelo de vectorización se creó una clase \emph{Embeddings} que va a actuar a modo de \emph{wrapper}\footnote{Un \emph{wrapper} es un programa o código que encapsula y facilita el uso de otros componentes del programa}. En la implementación proporcionada se utilizó la biblioteca langchain[\cite{langchain}], particularmente el módulo de \emph{embeddings} de HuggingFace para cargar los modelos de \emph{embeddings}. Y se definen los métodos siguientes:
     \begin{enumerate}
-        \item \emph{encode\_many}: Método que recibe una lista de documentos y retorna una lista con los vectores resultantes de procesar dicho documento
-        \item \emph{encode}: Método que recibe una cadena de texto y retorna el vector resultante de procesar el documento 
+        \item \emph{encode\_many}: Método que recibe una lista de documentos y retorna una lista con los vectores resultantes del procesamiento de dicho documento
+        \item \emph{encode}: Método que recibe una cadena de texto y retorna el vector resultante del procesamiento  de dicho documento 
         \item \emph{get\_model}: Método que retorna el modelo de embeddings que fue cargado. Esto es necesario para que tenga consistencia la búsqueda de similaridad de la base de datos
     \end{enumerate}
 
-    Esta clase forma parte del pipeline, no obstante puede ser reemplazada por otra implementación que sea consecuente con el diseño descrito anteriormente.
+    Esta clase forma parte del pipeline, no obstante puede ser reemplazada por otra implementación que sea consecuente con el diseño descrito.
 
     \subsection{Base de Datos Vectorial}
         \subsubsection{Selección del sistema de bases de datos}
             El sistema de bases de datos seleccionado para este proyecto es \emph{ChromaDB}[\cite{chromadb}]. Chroma DB es una base de datos vectorial que se destaca por su eficiencia en el almacenamiento y recuperación de vectores de \{embeddings}. Permite la creación de colecciones, el filtrado de texto y la consulta de documentos similares, además de tener una excelente integración con python.
-        Las interacciones con la base de datos se hacen a través de una clase que actúa a modo de \emph{"wrapper"}, esta vez con la siguiente estructura:
+        Las interacciones con la base de datos se hacen a través de una clase que actúa a modo de \emph{wrapper}, esta vez con la siguiente estructura:
         \begin{enumerate}
-            \item \emph{create\_collection}: crea una nueva colección en la base de datos 
-            \item \emph{get\_collection}: retorna una colección, las operaciones se realizan sobre las colecciones
-            \item \emph{list\_collections}: retorna una lista con todas las colecciones existentes
-            \item \emph{add} añade a la base de datos un nuevo documento, lo vectoriza utilizando el modelo de \emph{embeddings} definido, si no se define ninguno, utiliza por defecto el modelo `all-MiniLM-L6-v2' de \emph{SentenceTransformers}, recibe como entrada el texto del documento y los metadatos.
-            \item \emph{add\_embedding\_to\_database}: añade un nuevo documento que ya haya pasado por el proceso de \emph{embedding},recibe como entrada el texto del documento, el vector que lo representa y los metadatos.
-            \item \emph{add\_embeddings}: añade un grupo de documentos ya vectorizados a la base de datos, recibe como entrada el texto del documento, los vectores y los metadatos. 
-            \item \emph{query}: realiza una búsqueda de documentos relevantes para una consulta, la entrada será el texto  de la consulta y retorna los documentos relevantes, con vectores, texto y metadatos, la consulta es vectorizada por el modelo de embeddings definido.
-            \item \emph{query\_embeddings}: tiene un comportamineto similar a \emph{query} pero recibe en vez del texto a vectorizar, el vector que los representa; retorna los documentos relevantes (texto, vectores, metadatos)
+            \item \emph{create\_collection}: crea una nueva colección en la base de datos.
+            \item \emph{get\_collection}: retorna una colección, las operaciones se realizan sobre las colecciones.
+            \item \emph{list\_collections}: retorna una lista con todas las colecciones existentes.
+            \item \emph{add} añade a la base de datos un nuevo documento, lo vectoriza utilizando el modelo de \emph{embeddings} definido. Si no se define ninguno, utiliza por defecto el modelo `all-MiniLM-L6-v2' de \emph{SentenceTransformers}. Recibe como entrada el texto del documento y los metadatos.
+            \item \emph{add\_embedding\_to\_database}: añade un nuevo documento que ya haya pasado por el proceso de \emph{embedding}. Recibe como entrada el texto del documento, el vector que lo representa y los metadatos.
+            \item \emph{add\_embeddings}: añade un grupo de documentos ya vectorizados a la base de datos. Recibe como entrada el texto del documento, los vectores y los metadatos. 
+            \item \emph{query}: realiza una búsqueda de documentos relevantes para una consulta. La entrada será el texto  de la consulta y retorna los documentos relevantes. Con vectores, texto y metadatos, la consulta es vectorizada por el modelo de embeddings definido.
+            \item \emph{query\_embeddings}: tiene un comportamiento similar a \emph{query} pero recibe en vez del texto a vectorizar, el vector que los representa; retorna los documentos relevantes (texto, vectores, metadatos).
         \end{enumerate}
 
         Todos los métodos de recuperación de información tienen un parámetro opcional \emph{top\_k} que define la cantidad de documentos a retornar.
 
-        Los métodos de inserción comprenden un mecanísmo que revisa si existen ya en la base de datos otros documentos que puedan ser redundantes con el nuevo documento que se desea insertar. La similaridad máxima permitida entre dos vectores es 0.9, no obstante este valor es modificable para tener un mayor control sobre el criterio de similaridad, en correspondencia con el modelo de embeddings que se utilice.
+        Los métodos de inserción comprenden un mecanismo que revisa si existen ya en la base de datos otros documentos que puedan ser redundantes con el nuevo documento que se desea insertar. La similaridad máxima permitida entre dos vectores es 0.9. No obstante, este valor es modificable para tener un mayor control sobre el criterio de similaridad, en correspondencia con el modelo de embeddings que se utilice.
 
-        Este módulo, como todos los demás del \emph{pipeline}, es reemplazable por otros personalizados siempre y cuando sean consecuentes con la \emph{API}\footnote{Una API (Interfaz de Programación de Aplicaciones) es un conjunto de definiciones y protocolos que permite a diferentes aplicaciones comunicarse entre sí y compartir información y funcionalidades.} descrita.
+        Este módulo, como los demás del \emph{pipeline}, es reemplazable por otros personalizados siempre que sean consecuentes con la \emph{API}\footnote{Una API (Interfaz de Programación de Aplicaciones) es un conjunto de definiciones y protocolos que permite a diferentes aplicaciones comunicarse entre sí y compartir información y funcionalidades.} descrita.
 
 \section{Detección de temas}
     El proceso de detección de los temas (\emph{Topic Modelling}) se realiza a través de un proceso de agrupamiento o \emph{clustering}\footnote{El clustering o análisis de agrupamiento es una técnica de aprendizaje no supervisado que agrupa un conjunto de datos en diferentes grupos o cl\'usteres} en el espacio de vectores que comprende los vectores que representan los documentos.
@@ -53,12 +53,12 @@ Una vez cargados los documentos y segmentados, se asocia cada segmento de texto 
     \subsection{Algoritmo de \emph{Clustering}}
         Para este proceso se utiliza el algoritmo \emph{K-Means Clustering}, en particular la implementación que ofrece SKLearn[\cite{sklearn}] que además del algoritmo en sí, ofrece un método de detección automática de la cantidad óptima de cl\'usteres a través del método del codo[\cite{elbow}].
     
-    Se implementó un \emph{wrapper} para este proceso, el cual comprende los siguientes métodos:
+    Se implementó un \emph{wrapper} para este proceso, que comprende los siguientes métodos:
     \begin{enumerate}
-        \item \emph{generate\_embeddings}: Método para procesar los documentos en caso de que no se proporcionen las versiones vectorizadas de estos, retorna la lista de vectores correspondiente a los \emph{embeddings} de los documentos.
+        \item \emph{generate\_embeddings}: Método para procesar los documentos en caso de que no se proporcionen las versiones vectorizadas de estos. Retorna la lista de vectores correspondiente a los \emph{embeddings} de los documentos.
         \item \emph{detect\_outliers}: Detecta los vectores que pueden ser considerados \emph{outliers}\footnote{En estadística, un outlier es un punto de datos que difiere significativamente de otras observaciones} para evitar que estos afecten la correcta posición de los centroides.
-        \item \emph{detect\_optimal\_k}: Detecta la cantidad óptima de agrupar los datos acorde al método del codo, la cantidad de grupos, por defecto se encuentra en el rango entre 2 y 15, no obstante estos valores pueden ser modificados a través de los parámetros \emph{lim\_sub} y \emph{lim\_sup} de la función.
-        \item \emph{topic\_words}: Retorna las palabras más repetidas en cada uno de los cl\'usteres; retira de la lista de palabras las que estan definidas en las \emph{stopwords} de \emph{nltk}\footnote{Módulo Natural Language Toolkit https://www.nltk.org}
+        \item \emph{detect\_optimal\_k}: Detecta la cantidad óptima de temas para agrupar los datos acorde al método del codo.La cantidad de grupos, por defecto, se encuentra en el rango entre 2 y 15; no obstante, estos valores pueden ser modificados a través de los parámetros \emph{lim\_sub} y \emph{lim\_sup} de la función.
+        \item \emph{topic\_words}: Retorna las palabras más repetidas en cada cl\'uster; retira de la lista de palabras las que están definidas en las \emph{stopwords} de \emph{nltk}\footnote{Módulo Natural Language Toolkit https://www.nltk.org}
         \item \emph{get\_topics}: Método principal que recibe los documentos, los procesa y extrae los \emph{outliers}. Al grupo de documentos sin \emph{outliers} les detecta el número óptimo de cl\'usteres; una vez detectado este número, realiza el proceso de \emph{clustering}, esta vez con todos los documentos; de los cl\'usteres obtenidos, extrae las palabras representativas y, utilizando un \emph{LLM}, genera una sugerencia de título a partir de estas palabras. Este método retorna el centroide, las palabras más frecuentes y el título sugerido para cada cluster detectado.
     \end{enumerate}
 
