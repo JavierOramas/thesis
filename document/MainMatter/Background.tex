@@ -5,14 +5,7 @@
 
 \section{Sistemas de generación automática de resúmenes utilizando enfoques híbridos}
 
-Un enfoque híbrido combina tanto las aproximaciones extractivas como abstractivas en el proceso de resumen de texto. La arquitectura típica  de un generador de resumenes automaticos de textos híbrido se muestra en la Figura 1
-\begin{figure}    
-    \centering
-    \includegraphics[scale = 0.5]{Figures/hybrid.png}
-    \caption*{Figura 1: Estructura de un generador de resúmenes híbrido}
-\end{figure}
-    y consta comúnmente de las siguientes fases:
-
+Un enfoque híbrido combina tanto las aproximaciones extractivas como abstractivas en el proceso de resumen de texto. La arquitectura típica  de un generador de resumenes automaticos de textos híbrido se muestra en la Figura 1 y consta comúnmente de las siguientes fases:
 
 \begin{enumerate}
     \item Preprocesamiento
@@ -21,6 +14,11 @@ Un enfoque híbrido combina tanto las aproximaciones extractivas como abstractiv
     \item Post procesamiento: Verificar que las oraciones generadas sean válidas y se ajusten al formato deseado.
 \end{enumerate}
 
+\begin{figure}[H]    
+    \centering
+    \includegraphics[scale = 1]{Figures/hybrid.png}
+    \caption*{Figura 1: Estructura de un generador de resúmenes híbrido}
+\end{figure}
 
 En la propuesta de (Rasim et al., 2019)[\cite{cosum}] se utiliza un modelo de dos etapas que combina técnicas de \emph{clustering} y optimización. En la primera etapa, se aplica el método de \emph{k-means} para agrupar las oraciones y descubrir múltiples temas en el texto. En la segunda etapa, se implementa un modelo de optimización para la selección de oraciones destacadas de los clusters. Otro enfoque interesante es el de (Ghadimi \& Beigy, 2022)[\cite{hybrid-llm}] que inicialmente construye un resumen extractivo a partir de varios documentos de entrada y luego lo utiliza para generar el resumen abstractivo. La gestión de la información redundante, un problema global en el campo de la síntesis de múltiples documentos se aborda en la primera etapa, donde se utilizan similitudes basadas en BERT[\cite{BERT}] para calcular la redundancia de los documentos.
 
@@ -51,7 +49,7 @@ La incorporación de Grandes Modelos de Lenguaje (LLM) ha revolucionado el campo
 
 \section{Modelos de Lenguaje}
    
-    La influencia transformadora de las arquitecturas de \emph{transformers}, introducida en "Attention is All You Need" [\cite{attention}], ha sido crucial para los grandes modelos de lenguaje (LLMs). Modelos como BERT[\cite{BERT}] avanzaron en la comprensión bidireccional del contexto, mientras que la serie \emph{GPT (Generative Pre-trained Transformer)}, especialmente GPT-3[\cite{brown2020language}], con un modelo de 175 mil millones de parámetros y su sucesor GPT4[\cite{openai2023gpt4}]. Otros de los modelos a destacar son el presentados por \emph{MetaAI, LLaMA}(Feb. 2023)[\cite{llamapaper}] y \emph{LLaMA2}(Jul. 2023)[\cite{llamapaper2}] una colección de \emph{LLMs} preentrenados y ajustados finamente que varían en escala desde 7 mil millones hasta 70 mil millones de parámetros, mostrando resultados prometedores en comparación con otros modelos[\cite{metallama}]. 
+    La influencia transformadora de las arquitecturas de \emph{transformers}, introducida en `Attention is All You Need' [\cite{attention}], ha sido crucial para los grandes modelos de lenguaje (LLMs). Modelos como BERT[\cite{BERT}] avanzaron en la comprensión bidireccional del contexto, mientras que la serie \emph{GPT (Generative Pre-trained Transformer)}, especialmente GPT-3[\cite{brown2020language}], con un modelo de 175 mil millones de parámetros y su sucesor GPT4[\cite{openai2023gpt4}]. Otros de los modelos a destacar son el presentados por \emph{MetaAI, LLaMA}(Feb. 2023)[\cite{llamapaper}] y \emph{LLaMA2}(Jul. 2023)[\cite{llamapaper2}] una colección de \emph{LLMs} preentrenados y ajustados finamente que varían en escala desde 7 mil millones hasta 70 mil millones de parámetros, mostrando resultados prometedores en comparación con otros modelos[\cite{metallama}]. 
     
     \subsection{Generación de resúmenes usando LLM}
 

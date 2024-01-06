@@ -34,7 +34,7 @@ Una vez cargados los documentos y segmentados, se asocia cada segmento de texto 
             \item \emph{create\_collection}: crea una nueva colección en la base de datos 
             \item \emph{get\_collection}: retorna una colección, las operaciones se realizan sobre las colecciones
             \item \emph{list\_collections}: retorna una lista con todas las colecciones existentes
-            \item \emph{add} añade a la base de datos un nuevo documento, lo vectoriza utilizando el modelo de \emph{embeddings} definido, si no se define ninguno, utiliza por defecto el modelo "all-MiniLM-L6-v2" de \emph{SentenceTransformers}, recibe como entrada el texto del documento y los metadatos.
+            \item \emph{add} añade a la base de datos un nuevo documento, lo vectoriza utilizando el modelo de \emph{embeddings} definido, si no se define ninguno, utiliza por defecto el modelo `all-MiniLM-L6-v2' de \emph{SentenceTransformers}, recibe como entrada el texto del documento y los metadatos.
             \item \emph{add\_embedding\_to\_database}: añade un nuevo documento que ya haya pasado por el proceso de \emph{embedding},recibe como entrada el texto del documento, el vector que lo representa y los metadatos.
             \item \emph{add\_embeddings}: añade un grupo de documentos ya vectorizados a la base de datos, recibe como entrada el texto del documento, los vectores y los metadatos. 
             \item \emph{query}: realiza una búsqueda de documentos relevantes para una consulta, la entrada será el texto  de la consulta y retorna los documentos relevantes, con vectores, texto y metadatos, la consulta es vectorizada por el modelo de embeddings definido.
@@ -65,7 +65,7 @@ Una vez cargados los documentos y segmentados, se asocia cada segmento de texto 
     Este proceso genera una agrupación de los vectores de forma tal que se detectan distintos temas con los cuales asociar la información contenida en los documentos. Los centroides detectados están representados por vectores de la misma dimensionalidad que los vectores generados en en proceso de \emph{embedding}; si se hiciera una representación en 2D del proceso descrito se obtendría una representación similar a la Figura 2 
     \begin{figure}
         \centering
-        \includegraphics[scale = 0.5]{Figures/clustering.png}
+        \includegraphics[scale = 0.7]{Figures/clustering.png}
         \caption*{Figura 2: Representación en 2D de un corpus donde se ideintifican claramente 3 temas}
     \end{figure}
     donde los puntos de colores simbolizan los documentos pertenecientes a cada tema y las cruces negras los centroides de cada uno de los temas.
