@@ -29,10 +29,10 @@
 \section{Motivación}
     Es evidente la necesidad de crear una herramienta que permita a los investigadores procesar grandes cantidades de texto de manera eficiente y rebasar las limitaciones que actualmente suponen tanto el tiempo de lectura de artículos científicos como el volumen de información sobre cada tema para la creación de estados del arte en investigaciones científicas
 
-    Si bien existen algunos sistemas [\cite{elicit} , \cite{scite}], que permiten la extracción de información de múltiples documentos, por lo general requieren de un conocimiento previo de los temas que tratan. Además, la interacción en escencia se presenta en formato de preguntas-respuestas que, si bien puede ser deseable en algunos casos, puede hacer más tedioso el proceso de obtener de manera clara la información que se desea. Además, estos sistemas dependen de la correcta comprensión por parte del modelo de las preguntas que se le realizan.
+    Si bien existen algunos sistemas [\cite{elicit} , \cite{scite}], que permiten la extracción de información de múltiples documentos, por lo general requieren de un conocimiento previo de los temas que tratan. Además, la interacción en escencia se presenta en formato de preguntas-respuestas que, si bien puede ser deseable en algunos casos, puede hacer más tedioso el proceso de obtener de manera clara la información que se desea. Además, estos sistemas dependen de la correcta comprensión por parte del modelo de las preguntas que se le realizan.\par
 
 \section{Problemática}
-    Al hacer un estudio del estado del arte en torno a los sistemas de generación de resúmenes enfocados a la construcción de los propios estados del arte, no se encontraron modelos o metodologías públicas que sean capaces de generar textos semántica y sintácticamente correctos y que a su vez cuenten con un sistema de citación robusto que cumpla con los requisitos de un estado del arte. Todos los candidatos encontrados resultaron deficientes en ,al menos, una categoría.
+    Al hacer un estudio del estado del arte en torno a los sistemas de generación de resúmenes enfocados a la construcción de los propios estados del arte, no se encontraron modelos o metodologías públicas que sean capaces de generar textos semántica y sintácticamente correctos, y que a su vez cuenten con un sistema de citación robusto que cumpla con los requisitos de un estado del arte. Todos los candidatos encontrados resultaron deficientes en, al menos, una categoría.
 
 \section{Hipótesis}
     Es posible desarrollar un sistema (herramienta) de generación de un borrador de estado del arte que tenga como base de conocimientos un grupo de documentos previamente seleccionados y que, a su vez, genere un texto resumen que abarque un grupo de los temas (autodetectados) más relevantes. Además, el sistema deberá ser capaz de generar citas bibliográficas de manera automática, correcta y en el formato adecuado, cumpliendo con una estructura determinada.
@@ -47,11 +47,11 @@
         \begin{itemize}
             \item Definir una estructura que deberán cumplir todos los documentos generados.
             \item Proponer una metodología para la extracción de los temas principales de los documentos.
-            \item Ideintificar o entrenar un modelo que se desempeñe satisfactoriamente en la generación de un texto que cumpla con la estructura predefinida.
+            \item Identificar o entrenar un modelo que se desempeñe satisfactoriamente en la generación de un texto que cumpla con la estructura predefinida.
             \item Realizar una validación de los resultados que permita verificar la viabilidad de el método sugerido para la generación de un texto que cumpla con los requisitos definidos.
         \end{itemize}
 \section{Esbozo de solución}
-    En este documento se hace una propuesta de modelo híbrido, que utiliza la representación mediante embeddings\footnote{Un embedding de texto es una técnica que representa palabras como vectores de números, permitiendo que palabras con significados similares tengan representaciones similares}
+    En este documento se hace una propuesta de modelo híbrido, que utiliza la representación mediante \emph{embeddings}\footnote{Un \emph{embedding} de texto es una técnica que representa palabras como vectores de números, permitiendo que palabras con significados similares tengan representaciones similares}
     de los documentos para obtener una representación vectorial del corpus, sobre la cual se trabajará para agrupar los documentos por temas. Una vez hecho esto, se obtendrán las ideas más relevantes y, mediante la utilización de un modelo le lenguaje, se modelará la información extraída para cumplir con el formato especificado.
 
 \section{Estructura de la tesis}

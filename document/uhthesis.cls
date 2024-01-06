@@ -22,7 +22,10 @@
 \RequirePackage{footmisc}
 \RequirePackage{csquotes}
 % \RequirePackage{biblatex}
-
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
 \RequirePackage[
   hyperref=true,
 	backref=true
