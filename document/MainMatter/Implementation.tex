@@ -62,7 +62,13 @@ Una vez cargados los documentos y segmentados, se asocia cada segmento de texto 
         \item \emph{get\_topics}: Método principal que recibe los documentos, los procesa y extrae los \emph{outliers}. Al grupo de documentos sin \emph{outliers} les detecta el número óptimo de cl\'usteres; una vez detectado este número, realiza el proceso de \emph{clustering}, esta vez con todos los documentos; de los cl\'usteres obtenidos, extrae las palabras representativas y, utilizando un \emph{LLM}, genera una sugerencia de título a partir de estas palabras. Este método retorna el centroide, las palabras más frecuentes y el título sugerido para cada cluster detectado.
     \end{enumerate}
 
-    Este proceso genera una agrupación de los vectores de forma tal que se detectan distintos temas con los cuales asociar la información contenida en los documentos. Los centroides detectados están representados por vectores de la misma dimensionalidad que los vectores generados en en proceso de \emph{embedding}; si se hiciera una representación en 2D del proceso descrito se obtendría una representación similar a () donde los puntos de colores simbolizan los documentos pertenecientes a cada tema y los puntos negros los centroides de cada uno de los temas.
+    Este proceso genera una agrupación de los vectores de forma tal que se detectan distintos temas con los cuales asociar la información contenida en los documentos. Los centroides detectados están representados por vectores de la misma dimensionalidad que los vectores generados en en proceso de \emph{embedding}; si se hiciera una representación en 2D del proceso descrito se obtendría una representación similar a la Figura 2 
+    \begin{figure}
+        \centering
+        \includegraphics[scale = 0.5]{Figures/clustering.png}
+        \caption*{Figura 2: Representación en 2D de un corpus donde se ideintifican claramente 3 temas}
+    \end{figure}
+    donde los puntos de colores simbolizan los documentos pertenecientes a cada tema y las cruces negras los centroides de cada uno de los temas.
 
     % \includegraphics{clustering2d.png}
 
