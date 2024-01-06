@@ -59,32 +59,32 @@ Toda vez que se encuentren cargados y segmentados los documentos, cada segmento 
         \item \emph{detect\_outliers}: Detecta los vectores que pueden ser considerados \emph{outliers}\footnote{En estadística, un outlier es un punto de datos que difiere significativamente de otras observaciones} para evitar que estos afecten la correcta posición de los centroides.
         \item \emph{detect\_optimal\_k}: Detecta la cantidad óptima de temas para agrupar los datos acorde al método del codo.La cantidad de grupos, por defecto, se encuentra en el rango entre 2 y 15; no obstante, estos valores pueden ser modificados a través de los parámetros \emph{lim\_sub} y \emph{lim\_sup} de la función.
         \item \emph{topic\_words}: Retorna las palabras más repetidas en cada cl\'uster; retira de la lista de palabras las que están definidas en las \emph{stopwords} de \emph{nltk}\footnote{Módulo Natural Language Toolkit https://www.nltk.org}
-        \item \emph{get\_topics}: Método principal que recibe los documentos, los procesa y extrae los \emph{outliers}. Al grupo de documentos sin \emph{outliers} les detecta el número óptimo de cl\'usteres; una vez detectado este número, realiza el proceso de \emph{clustering}, esta vez con todos los documentos; de los cl\'usteres obtenidos, extrae las palabras representativas y, utilizando un \emph{LLM}, genera una sugerencia de título a partir de estas palabras. Este método retorna el centroide, las palabras más frecuentes y el título sugerido para cada cluster detectado.
+        \item \emph{get\_topics}: Método principal que recibe los documentos, los procesa y extrae los \emph{outliers}. Al grupo de documentos sin \emph{outliers} les detecta el número óptimo de cl\'usteres. Una vez detectado este número, realiza el proceso de \emph{clustering}. Esta vez con todos los documentos. De los cl\'usteres obtenidos, extrae las palabras representativas y, utilizando un \emph{LLM}, genera una sugerencia de título a partir de estas palabras. Este método retorna el centroide, las palabras más frecuentes y el título sugerido para cada cluster detectado.
     \end{enumerate}
 
-    Este proceso genera una agrupación de los vectores de forma tal que se detectan distintos temas con los cuales asociar la información contenida en los documentos. Los centroides detectados están representados por vectores de la misma dimensionalidad que los vectores generados en en proceso de \emph{embedding}; si se hiciera una representación en 2D del proceso descrito se obtendría una representación similar a la Figura 2 
+    Este proceso descrito genera una agrupación de los vectores de forma tal que se detectan distintos temas con los cuales asociar la información contenida en los documentos. Los centroides detectados están representados por vectores de la misma dimensionalidad que los vectores generados en en proceso de \emph{embedding}. Si se hiciera una representación en 2D del proceso descrito se obtendría una representación similar a la Figura 2 
     \begin{figure}
         \centering
         \includegraphics[scale = 0.7]{Figures/clustering.png}
         \caption*{Figura 2: Representación en 2D de un corpus donde se ideintifican claramente 3 temas}
     \end{figure}
-    donde los puntos de colores simbolizan los documentos pertenecientes a cada tema y las cruces negras los centroides de cada uno de los temas.
+    donde los puntos con color simbolizan los documentos asociados a un tema  y las cruces negras los centroides de cada uno de los temas.
 
-    De esta manera si el centroide representa el punto que define la pertenencia de los documentos a un cluster que a su vez representa un tema, al obtenerse los documentos más relevantes con relación al vector que representa el centroide se estarán obteniendo los documentos más relevantes para el tema representado por dicho cluster, todo esto en correspondencia con la calidad de la representación vectorial del modelo de embeddings utilizado.
+    De esta manera si el centroide representa el punto que define la pertenencia de los documentos a un cluster que a su vez representa un tema, al obtenerse los documentos más relevantes con relación al vector que representa el centroide se estarán obteniendo los documentos más relevantes para el tema representado por dicho cluster. Esto tendría una correspondencia directa con la calidad de la representación vectorial del modelo de embeddings utilizado.
 \section{Generación de los resúmenes}
     Una vez obtenidos los clusters se utilizan los centroides para recuperar los documentos más relevantes para cada tema. En este paso es importante tener en cuenta el método de segmentación de texto que se utilizó en el paso de carga de documentos. Este determinaría la cantidad de documentos a recuperar para, consecuentemente, no obtener una cantidad de documentos superior o inferior a la deseada, pues esto podría afectar la calidad de los resúmenes generados.
     
-    Estos documentos recuperados, conforman un resumen extractivo preliminar, este resumen es entonces utilizado como parte del prompt de un \emph{LLM} para generar una abstracción del mismo. Efectivamente se obtiene una lista de los resúmenes de cada una de las secciones con las que se generará el estado del arte asociado a esos documentos, en correspondencia con la plantilla definida.
-    Los documentos recuperados que son utilizados para generar el resumen de cada tema contienen en sus metadatos la información suficiente para ideintificar a qué archivo del corpus pertenecen, se añaden las referencias a estos documentos de origen utilizando esta infromación construyendo así las referencias bibliográficas del Estado del arte generado.
+    Estos documentos recuperados, conforman un resumen extractivo preliminar, que a su vez utilizado como parte del prompt de un \emph{LLM} para generar una abstracción del mismo. De esta manera se obtiene una lista de los resúmenes de cada una de las secciones con las que se generará el estado del arte asociado a esos documentos, en correspondencia con la plantilla definida.
+    Los documentos recuperados que son utilizados para generar el resumen de cada tema contienen en sus metadatos la información suficiente para ideintificar a qué archivo del corpus pertenecen. Así se añaden las referencias a estos documentos de origen utilizando dicha información que coadyuva a la constucción de las referencias bibliográficas del Estado del arte generado.
 
 
 \section{Plantilla de Estado del Arte}
-Se define la plantilla de Estado del arte como un documento que consiste en una enumeración de los temas descubiertos, 
-para cada elemento se tendría:
+Se define la plantilla de estado del arte como un documento con formato enumerativo de los temas descubiertos. 
+para cada elemento se Obtiene:
 \begin{enumerate}
     \item Título sugerido para el tema
     \item Texto con la información generada y las referencias a las citas bibliográficas
-    \item Bloque con la bibliográfía a modo de citas de los documentos de los que se obtuvo la información
+    \item Bloque con la bibliografía (a modo de citas) de los documentos de los que se obtuvo la información
 \end{enumerate}
 
 Esta plantilla es más una definición del formato del documento que se genera con la información resultante de la ejecución del \emph{pipeline} en un corpus de documentos.
