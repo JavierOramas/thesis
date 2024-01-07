@@ -29,7 +29,7 @@
 \section{Motivación}
     Es evidente la necesidad de crear una herramienta que permita a los investigadores procesar grandes cantidades de texto de manera eficiente y rebasar las limitaciones que actualmente suponen tanto el tiempo de lectura de artículos científicos como el volumen de información sobre cada tema para la creación de estados del arte en investigaciones científicas
 
-    Si bien existen algunos sistemas [\cite{elicit} , \cite{scite}], que permiten la extracción de información de múltiples documentos, por lo general requieren de un conocimiento previo de los temas que tratan. Además, la interacción en escencia se presenta en formato de preguntas-respuestas que, si bien puede ser deseable en algunos casos, puede hacer más tedioso el proceso de obtener de manera clara la información que se desea. Además, estos sistemas dependen de la correcta comprensión por parte del modelo de las preguntas que se le realizan.\par
+    Si bien existen algunos sistemas [\cite{elicit},\cite{scite}], que permiten la extracción de información de múltiples documentos, por lo general requieren de un conocimiento previo de los temas que tratan. Además, la interacción en escencia se presenta en formato de preguntas-respuestas que, si bien puede ser deseable en algunos casos, puede hacer más tedioso el proceso de obtener de manera clara la información que se desea. Además, estos sistemas dependen de la correcta comprensión por parte del modelo de las preguntas que se le realizan.\par
 
 \section{Problemática}
     Al hacer un estudio del estado del arte en torno a los sistemas de generación de resúmenes enfocados a la construcción de los propios estados del arte, no se encontraron modelos o metodologías públicas que sean capaces de generar textos semántica y sintácticamente correctos, y que a su vez cuenten con un sistema de citación robusto que cumpla con los requisitos de un estado del arte. Todos los candidatos encontrados resultaron deficientes en, al menos, una categoría.
@@ -40,7 +40,7 @@
 \section{Objetivos}
     \subsection{Objetivo General}
 
-        Proponer un modelo que permita generar un texto que contenga una enumeración de los principales temas encontrados en el corpus de documentos, seguidos cada uno por un resumen de los contenidos relacionados con el tema presentes en el dataset y con sus respectivas citaciones.
+        Proponer un modelo que permita generar un texto que contenga una enumeración de los principales temas encontrados en el corpus de documentos; seguidos cada uno por un resumen de los contenidos `relacionados con el tema' presentes en el dataset y con sus respectivas citaciones.
 
     \subsection{Objetivos Específicos}
 
@@ -52,7 +52,7 @@
         \end{itemize}
 \section{Esbozo de solución}
     En este documento se hace una propuesta de modelo híbrido, que utiliza la representación mediante \emph{embeddings}\footnote{Un \emph{embedding} de texto es una técnica que representa palabras como vectores de números, permitiendo que palabras con significados similares tengan representaciones similares}
-    de los documentos para obtener una representación vectorial del corpus, sobre la cual se trabajará para agrupar los documentos por temas. Una vez hecho esto, se obtendrán las ideas más relevantes y, mediante la utilización de un modelo le lenguaje, se modelará la información extraída para cumplir con el formato especificado.
+    de los documentos para obtener una representación vectorial del corpus, sobre la cual se trabajará para agrupar los documentos por temas. Una vez hecho esto, se obtendrán las ideas más relevantes y, mediante la utilización de un modelo el lenguaje, se modelará la información extraída para cumplir con el formato especificado.
 
 \section{Estructura de la tesis}
         El resto del documento se encuentra organizado de la siguiente manera:
