@@ -21,7 +21,7 @@
     \section{Segunda Fase: \emph{Embeddings}}
     Esta segunda fase comprende la conversión de la información previamente preprocesada en \emph{Embeddings de texto}.
     La representación del texto de esta manera permite obtener una abstracción de las ideas contenidas en los documentos. 
-    Para ello se decidie utilizar el modelo `all-MiniML-L6-v2' que, de acuerdo con las pruebas de \emph{MTEB}[\cite{leaderboard}] obtiene buenos resultados sin altos requerimientos de tiempo y recursos computacionales. Estos \emph{embeddings} son unos vectores de dimensión 384 que serán almacenados en una base de datos vectorial para facilitar el acceso a estos y la realización de búsquedas por similaridad. \emph{Embedings} que traten del mismo tema se han de encontrar mas cerca entre si que \emph{embeddings} que representen conceptos diferentes.
+    Para ello se decidie utilizar el modelo `all-MiniML-L6-v2' que, de acuerdo con las pruebas de \emph{MTEB} [\cite{leaderboard}] obtiene buenos resultados sin altos requerimientos de tiempo y recursos computacionales. Estos \emph{embeddings} son unos vectores de dimensión 384 que serán almacenados en una base de datos vectorial para facilitar el acceso a estos y la realización de búsquedas por similaridad. \emph{Embedings} que traten del mismo tema se han de encontrar mas cerca entre si que \emph{embeddings} que representen conceptos diferentes.
 
     \begin{figure}[H]    
         \centering
@@ -66,4 +66,3 @@
         \includegraphics[scale = 1]{Figures/pipeline_5.png}
         \caption*{}
     \end{figure}
-    
